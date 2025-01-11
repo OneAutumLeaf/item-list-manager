@@ -3,11 +3,15 @@ import React, { useState } from "react";
 function App() {
   const [items, setItems] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [warningMessage, setWarningMessage] = useState("");
 
   const handleAddItem = () => {
-    if (inputValue.trim() !== "") {
+    if (inputValue.trim() === "") {
+      setWarningMessage("Please enter an item.");
+    } else {
       setItems([...items, inputValue]);
       setInputValue("");
+      setWarningMessage(""); 
     }
   };
 
@@ -27,6 +31,12 @@ function App() {
 
       <div style={{ maxWidth: "600px", margin: "40px auto", textAlign: "center", padding: "20px", backgroundColor: "white", borderRadius: "10px", boxShadow: "0 4px 6px rgba(0,0,0,0.1)" }}>
         <h2 style={{ marginBottom: "20px", fontSize: "1.5em" }}>Item List</h2>
+
+        {warningMessage && (
+          <div style={{ color: "red", marginBottom: "10px" }}>
+            {warningMessage}
+          </div>
+        )}
 
         <div style={{ marginBottom: "20px" }}>
           <input
